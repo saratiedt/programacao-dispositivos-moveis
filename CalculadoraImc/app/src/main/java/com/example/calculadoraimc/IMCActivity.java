@@ -50,17 +50,17 @@ public class IMCActivity extends AppCompatActivity {
 
     public String classificaIMC(Double imc) {
         if (imc <= 18.5){
-            return "Você está abaixo do peso.";
+            return "Você está abaixo do peso";
         } else if (imc > 18.5 && imc <= 24.9){
             return "Você está no peso ideal";
         } else if (imc > 24.9 && imc <= 29.9){
-            return "Você está um pouco acima do peso.";
+            return "Você está um pouco acima do peso";
         } else if (imc > 29.9 && imc <= 34.9){
             return "Você está em obesidade nível I.";
         } else if (imc > 34.9 && imc <= 39.9){
-            return "Você está em obesidade nível II (severa).";
+            return "Você está em obesidade nível II (severa)";
         } else {
-            return "Você está em obesidade nível III (mórbida).";
+            return "Você está em obesidade nível III (mórbida)";
         }
     }
 }
