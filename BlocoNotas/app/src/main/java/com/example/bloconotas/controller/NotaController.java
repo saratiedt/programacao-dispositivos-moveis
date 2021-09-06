@@ -25,5 +25,18 @@ public class NotaController {
         return  notaDao.insertNota(nota);
     }
 
+    public ArrayList<Nota> listaNotas () {
+       return notaDao.getListaNotas();
+    }
+
+    public ArrayList<String> listaTituloNotas() {
+        ArrayList<String> result = new ArrayList<>();
+        for (Nota nota: this.listaNotas()
+             ) {
+            result.add(nota.getTitulo());
+        }
+        return result;
+    }
+
 
 }
