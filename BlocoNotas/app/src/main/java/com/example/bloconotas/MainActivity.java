@@ -1,14 +1,19 @@
 package com.example.bloconotas;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.bloconotas.controller.NotaController;
+import com.example.bloconotas.modelo.Nota;
 
 import java.util.ArrayList;
 
@@ -25,7 +30,7 @@ ListView listView;
 
     public void cadastrarNota(View v) {
         Intent intent = new Intent(this, ActivityExibirNota.class);
-        intent.putExtra("id nota", 0);
+
         startActivity(intent);
     }
 
@@ -41,5 +46,35 @@ ListView listView;
                 android.R.id.text1,
                 dataset);
         listView.setAdapter(arrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),Long.toString(parent.getItemIdAtPosition(position) ), Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getApplicationContext(), ActivityExibirNota.class);
+                Nota n = notaController.recuperaNota(notaController.listaNotas().get(position).getId());
+                i.putExtra("notaId",notaController.listaNotas().get(position).getId());
+                startActivity(i);
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
+                adb.setTitle("Confirmar exclusão nota");
+                adb.setMessage("Excluir nota ?");
+                adb.setNegativeButton("Cancelar", null);
+                adb.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        notaController.excluirNota( notaController.listaNotas().get(position));
+                        onResume();
+                    }
+                });
+                adb.show();
+                return true;
+            }
+        });
+
     }
 }

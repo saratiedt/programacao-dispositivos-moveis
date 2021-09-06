@@ -51,4 +51,32 @@ public class NotaDao {
         return notas;
 
     }
+
+    public Nota buscaNota(Integer id) {
+        Cursor cursor = this.database.rawQuery("SELECT * FROM notas WHERE id=?",new String [] {Integer.toString(id)});
+        cursor.moveToFirst();
+        return new Nota( cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2)
+        );
+    }
+
+    public boolean atualizaNota(Nota nota) {
+        if (nota.getId() != null) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("titulo", nota.getTitulo());
+            contentValues.put("texto", nota.getTexto());
+            database.update("notas", contentValues, "id=?", new String[]{Integer.toString(nota.getId())});
+            return  true;
+        }
+        return  false;
+    }
+
+    public boolean removeNota(Nota nota) {
+        if (database.delete("notas", "id=?", new String[]{Integer.toString(nota.getId())}) > 0) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

@@ -38,5 +38,15 @@ public class NotaController {
         return result;
     }
 
+    public Nota recuperaNota(Integer id){
+        return  notaDao.buscaNota(id);
+    }
+    public boolean atualizaNota(Nota nota){
+        return  notaDao.atualizaNota(nota);
+    }
+    public boolean excluirNota(Nota nota ) {
+        return notaDao.removeNota(nota);
+    }
+
 
 }
