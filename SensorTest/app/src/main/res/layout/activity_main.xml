@@ -21,9 +21,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginLeft="39dp"
-        android:text="Light"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="Sensores"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvSensorLigh"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

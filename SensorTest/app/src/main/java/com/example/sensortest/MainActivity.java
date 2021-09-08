@@ -10,36 +10,32 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
 
     SensorManager sensorManager;
-    Sensor sensorLight;
     TextView textViewLight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         textViewLight=findViewById(R.id.tvSensorLigh);
-
-
         sensorManager = (SensorManager) getSystemService(getApplicationContext().SENSOR_SERVICE);
 
-        sensorLight = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        List<Sensor> listSensor =  sensorManager.getSensorList(Sensor.TYPE_ALL);
+        StringBuilder sensorListText = new StringBuilder();
 
-        sensorManager.registerListener(this, sensorLight, SensorManager.SENSOR_DELAY_NORMAL);
-    }
+        for (Sensor s: listSensor) {
+            sensorListText.append(s.getName()).append(System.getProperty("line.separator"));
+        }
 
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        int sensorType = sensorEvent.sensor.getType();
-
-        float currentValue = sensorEvent.values[0];
-        textViewLight.setText(Float.toString(currentValue));
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
+        textViewLight.setText(sensorListText);
 
     }
+
+
 }
